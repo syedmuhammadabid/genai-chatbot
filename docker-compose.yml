@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    #volumes:
+    #  - ./backend:/app
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5001:5001"
+    #volumes:
+    #  - ./frontend:/app
+    restart: unless-stopped
+    depends_on:
+      - backend

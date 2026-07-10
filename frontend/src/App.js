@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -13,7 +15,7 @@ function App() {
     setMessages([...messages, { sender: 'user', text: userMessage }]);
 
     try {
-      const res = await axios.post('http://localhost:5000/chat/message', { message: userMessage });
+      const res = await axios.post(`${API_URL}/chat/message`, { message: userMessage });
       setMessages(prev => [...prev, { sender: 'bot', text: res.data.reply }]);
     } catch (err) {
       console.error(err);
